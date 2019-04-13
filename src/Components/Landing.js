@@ -1,7 +1,14 @@
 import React from 'react'
-import LandingNav from './LandingNav'
-import Typography from '@material-ui/core/Typography'
+//Dependencies
+
+//Material UI
 import Paper from '@material-ui/core/Paper'
+import Switch from '@material-ui/core/Switch'
+
+//Components
+import LandingNav from './LandingNav'
+import Login from './Authentication/Login'
+import SignUp from './Authentication/SignUp'
 
 
 class Landing extends React.Component{
@@ -11,17 +18,37 @@ class Landing extends React.Component{
       login: true
     }
   }
+
+  formShow=()=>{
+    const {login} = this.state
+    if(login){
+      return <Login/>
+    }else{
+      return <SignUp/>
+    }
+  }
+
+  formToggle=()=>{
+    const {login} = this.state
+    if(login){
+      this.setState({login:false})
+    }else{
+      this.setState({login: true})
+    }
+  }
+
   render(){
     return(    
       <div className = "mainDiv">
 
         <LandingNav/>
         <div>
-        <div style = {{width: "40vw", margin: "0 auto"}}>
-          <Paper>
-            <Typography variant = "h3">Hi</Typography>
-          </Paper>
-        </div>
+          <div style = {{width: "40vw", margin: "0 auto", padding: "30px"}}>
+            <Paper elevation = "2">
+              <p>Toggle to signup or login <span><Switch checked = {this.state.login} onChange={()=>this.formToggle()}/></span></p>
+              {this.formShow()}
+            </Paper>
+          </div>
         </div>
         
       </div>

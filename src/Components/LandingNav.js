@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography'
 const LandingNav = ()=>{
   return(
     <div style = {{marginBottom: "30px"}}>
-      <AppBar>
+      <AppBar color = "default">
         <Typography variant = 'h6'>This is the landing nav bar</Typography>
       </AppBar>
     </div>
