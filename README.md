@@ -6,6 +6,6 @@ In the project directory, you can run:
 
 ### `npm start`
 
-#About
+# About
 This project is a rebuild of my first personal project, although this time it makes use of firebase firestore and firebase cloud storage.
 It is currently a work in progress. 
