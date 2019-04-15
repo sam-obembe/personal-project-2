@@ -18,7 +18,7 @@ class Login extends React.Component{
 
   render(){
     return(
-      <div style = {{width: "60%", margin: "0 auto"}}>
+      <div style = {{display:"flex", flexDirection: "column", width: "250px", margin: "0 auto"}}>
         <Typography variant = "h6">Login</Typography>
         <TextField label = "email" name = "email"/><br/>
         <TextField label = "password" name = "password" type = "password"/>
