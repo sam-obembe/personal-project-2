@@ -4,6 +4,7 @@ import React from 'react'
 //Material UI
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 //Components
 
 class Login extends React.Component{
@@ -21,6 +22,7 @@ class Login extends React.Component{
         <Typography variant = "h6">Login</Typography>
         <TextField label = "email" name = "email"/><br/>
         <TextField label = "password" name = "password" type = "password"/>
+        <Button>Login</Button>
       </div>
     )
   }

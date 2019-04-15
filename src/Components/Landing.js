@@ -44,7 +44,7 @@ class Landing extends React.Component{
         <LandingNav/>
         <div>
           <div style = {{width: "40vw", margin: "0 auto", padding: "30px"}}>
-            <Paper elevation = "2">
+            <Paper elevation = {2}>
               <p>Toggle to signup or login <span><Switch checked = {this.state.login} onChange={()=>this.formToggle()}/></span></p>
               {this.formShow()}
             </Paper>
