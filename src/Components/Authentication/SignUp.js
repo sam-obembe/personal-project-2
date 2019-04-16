@@ -41,9 +41,13 @@ class Signup extends React.Component{
     return(
       <div style = {{display:"flex", flexDirection: "column", width: "250px", margin: "0 auto"}}>
         <Typography variant = "h5">Signup</Typography>
-        <TextField label = "email" name = "email" onChange = {(e)=>this.inputHandle(e)} value ={this.state.email}/>
+
+        <TextField label="email" name ="email" onChange = {(e)=>this.inputHandle(e)} value ={this.state.email}/>
+
         <TextField label = "password" name = "password" onChange = {(e)=>this.inputHandle(e)} placeholder = {this.state.password} type = "password"/>
+
         <TextField label = "first name" name = "first_name" onChange = {(e)=>this.inputHandle(e)} value = {this.state.first_name}/>
+
         <TextField label = "last name" name = "last_name" onChange = {(e)=>this.inputHandle(e)} value = {this.state.last_name}/>
 
         <p>Job Seeker 

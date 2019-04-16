@@ -19,9 +19,9 @@ const config = {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__|| compose
 
 const mainReducer = combineReducers({
-  userReducer,
-  authReducer,
-  jobReducer, 
+  user:userReducer,
+  auth:authReducer,
+  job:jobReducer, 
   firebase:firebaseReducer
 })
 
