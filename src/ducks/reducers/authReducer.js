@@ -2,12 +2,14 @@ const authState = {
   
 }
 
+//action types
 const SIGNUP = "SIGNUP"
 
-
+//action creators
 export function signup(){
-  return{
-    type: SIGNUP,
+  return (dispatch,getState)=>{
+    //do auth stuff
+    dispatch({type: 'SIGNUP', payload: "credentials"})
   }
 }
 

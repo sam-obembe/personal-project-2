@@ -13,7 +13,7 @@ class Signup extends React.Component{
     super()
     this.state = {
       job_seeker: true,
-      job_poster: false,
+      recruiter: false,
       user_type: "",
       email: "",
       password: "",
@@ -23,9 +23,9 @@ class Signup extends React.Component{
   }
 
   radioToggle=(e)=>{
-    const {job_seeker,job_poster} = this.state
+    const {job_seeker,recruiter} = this.state
     this.setState({job_seeker: !job_seeker})
-    this.setState({job_poster: !job_poster})
+    this.setState({recruiter: !recruiter})
     this.setState({user_type: e.target.value}) 
   }
 
@@ -61,13 +61,13 @@ class Signup extends React.Component{
           </span>
         </p>
           
-        <p>Job poster 
+        <p>Recruiter 
           <span>
-            <Radio checked = {this.state.job_poster} 
+            <Radio checked = {this.state.recruiter} 
             label = "job poster" 
-            name = "job_poster" 
+            name = "recruiter" 
             onClick = {(e)=>this.radioToggle(e)}
-            value = "job_poster"
+            value = "recruiter"
             />
           </span>
         </p>    

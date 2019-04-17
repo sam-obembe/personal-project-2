@@ -1,20 +1,16 @@
+//redux dependecies and middleware
 import {createStore, applyMiddleware, combineReducers,compose} from 'redux'
 import promise from 'redux-promise-middleware'
+import thunk from 'redux-thunk'
+import {getFirestore} from 'redux-firestore'
+import {getFirebase} from 'react-redux-firebase'
 
+//reducers
 import userReducer from './reducers/userReducer'
 import authReducer from './reducers/authReducer'
 import jobReducer from './reducers/jobReducer'
-
-import firebase from 'firebase'
-import firebaseConfig from '../FirebaseConfig'
 import {firebaseReducer} from 'react-redux-firebase'
 
-firebase.initializeApp(firebaseConfig)
-
-const config = {
-  userProfile: 'users',
-  enableLogging: false
-}
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__|| compose
 
@@ -25,6 +21,7 @@ const mainReducer = combineReducers({
   firebase:firebaseReducer
 })
 
-const store = createStore(mainReducer, composeEnhancers(applyMiddleware(promise)))
+
+const store = createStore(mainReducer, composeEnhancers(applyMiddleware(thunk.withExtraArgument({getFirebase,getFirestore}),promise)))
 
 export default store
