@@ -14,6 +14,7 @@ require('firebase/firestore')
 
 //controllers
 const ac = require('./controller/authController')
+const jc = require('./controller/jobController')
 
 const port = process.env.port
 admin.initializeApp({
@@ -28,7 +29,7 @@ app.set('db',admin.firestore())
 
 firebase.initializeApp(firebaseConfig.config)
 
-app.use(bodyParser())
+app.use(bodyParser.json())
 
 app.use(session({
   secret: process.env.SESH_SEC,
@@ -39,5 +40,10 @@ app.use(session({
 
 app.post(`/register`,ac.registerUser)
 app.post(`/signin`, ac.signIn)
+app.post(`/logout`, ac.logout)
+
+//jobs
+app.post(`/jobs/create`,jc.createJob)
+app.delete(`/jobs/delete/:jobId`,jc.deleteJob)
 
 app.listen(port,()=>console.log(`listening on ${port}`))

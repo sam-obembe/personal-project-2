@@ -30,7 +30,7 @@ module.exports = {
     }
 
     catch(err){
-      console.log("could not complete")
+      res.status(500).send("could not complete")
     }
     
   },
@@ -45,8 +45,14 @@ module.exports = {
       }).catch(err=>console.log(err.code))
     }
     catch(err){
-      res.status(400).send("could not register")
+      res.status(500).send("could not register")
     }
+  },
+
+  logout: async(req,res)=>{
+    await firebase.auth().signOut().then(()=>{
+      res.status(200).send("signed out")
+    })
   }
 }
 
