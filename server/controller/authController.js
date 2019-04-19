@@ -55,9 +55,64 @@ module.exports = {
     await firebase.auth().signOut().then(()=>{
       res.status(200).send("signed out")
     })
+  },
+
+  delete: async(req,res)=>{
+    const db  = req.app.get('db')
+    const {userId} = req.params
+    let user = firebase.auth().currentUser
+
+    try{
+
+    
+      if(user && userId === user.uid){  
+        // let jobsCreated = []
+        /*get all jobs created by user and store in jobs*/
+
+        //this block of code is still being tested
+        /* 
+        await db.collection('jobs').where("creator_id" , "==" , user.uid).delete()
+        .then(()=>res.status(200).send("all user created jobs deleted"))
+        .catch(err=>res.status(200).send(err))
+        */
+       await db.collection('users').doc(userId).delete().then(()=>{
+        user.delete().then(()=>{
+        res.status(200).send("user has been deleted")
+        })
+      })
+        
+
+      }
+
+      else if(user === null){
+        res.status(401).send("you are not authorised to delete this account")
+      }
+    
+    }
+    catch(err){
+      console.log(err)
+      res.status(501).json(err)
+    }
+
   }
 }
 
 /*
 user id is stored on user.uid
+*/
+
+
+/*await db.collection('users').doc(userId).delete().then(()=>{
+  user.delete().then(()=>{
+  res.status(200).send("user has been deleted")
+  })
+})*/
+
+
+/*
+await db.collection('jobs').where("creator_id" , "==" , user.uid).get()
+    .then(doc=>{
+    doc.forEach(docSnap=>jobsCreated.push(docSnap.data()))
+   })
+  .catch(err=>res.status(200).send(err))
 */

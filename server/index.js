@@ -41,6 +41,7 @@ app.use(session({
 app.post(`/register`,ac.registerUser)
 app.post(`/signin`, ac.signIn)
 app.post(`/logout`, ac.logout)
+app.delete(`/user/delete/:userId`, ac.delete)
 
 //jobs
 app.post(`/jobs/create`,jc.createJob)
