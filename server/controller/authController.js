@@ -12,7 +12,7 @@ module.exports = {
       //create user
       await firebase.auth().createUserWithEmailAndPassword(email,password).then(async ()=>{
         //get current user instance
-        var user = firebase.auth().currentUser
+        let user = firebase.auth().currentUser
         //add user details to  firebase
         await db.collection('users').doc(user.uid).set({
           email:email,
@@ -26,7 +26,7 @@ module.exports = {
         console.log(err.code)
       })
 
-      res.status(200).send("registered")
+      res.status(200).send({message:"registered",details:{email,first_name,last_name,user_type}})
     }
 
     catch(err){
@@ -37,11 +37,13 @@ module.exports = {
 
   signIn: async(req,res)=>{
     let {email,password} = req.body
+    const db = req.app.get('db')
     try{
-      await firebase.auth().signInWithEmailAndPassword(email,password).then(()=>{
+      await firebase.auth().signInWithEmailAndPassword(email,password).then(async ()=>{
         let user = firebase.auth().currentUser
-        console.log(user.uid)
-        res.status(200).send("signed in")
+        let user_details = await db.collection('users').doc(user.uid).get().then(doc=>doc.data())
+        //console.log(user)
+        res.status(200).send({message:"signed in",details:user_details})
       }).catch(err=>console.log(err.code))
     }
     catch(err){
