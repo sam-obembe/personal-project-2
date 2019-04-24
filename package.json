@@ -6,6 +6,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "animate.css": "^3.7.0",
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
