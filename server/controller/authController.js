@@ -26,7 +26,7 @@ module.exports = {
         console.log(err.code)
       })
 
-      res.status(200).send({message:"registered",details:{email,first_name,last_name,user_type}})
+      res.status(200).send({message:"registered",details:{email,first_name,last_name,user_type, user_id: firebase.auth().currentUser.uid}})
     }
 
     catch(err){
@@ -41,7 +41,8 @@ module.exports = {
     try{
       await firebase.auth().signInWithEmailAndPassword(email,password).then(async ()=>{
         let user = firebase.auth().currentUser
-        let user_details = await db.collection('users').doc(user.uid).get().then(doc=>doc.data())
+        let user_info = await db.collection('users').doc(user.uid).get().then(doc=>doc.data())
+        let user_details = Object.assign({},user_info,{user_id: user.uid})
         //console.log(user)
         res.status(200).send({message:"signed in",details:user_details})
       }).catch(err=>console.log(err.code))

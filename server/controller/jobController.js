@@ -56,5 +56,27 @@ module.exports = {
     catch(err){
       res.status(500).send('error')
     } 
+  },
+
+  getJobs: async(req,res)=>{
+
+    try{
+      const userId = firebase.auth().currentUser.uid
+      const db = req.app.get('db')
+      const jobs = []
+      await db.collection('users').doc(userId).collection('jobs_created').get()
+      .then(querySnapshot=>{
+        querySnapshot.forEach(jobDoc=> jobs.push(jobDoc.data()))
+      })
+      .then(()=>res.status(200).send(jobs))
+      .catch(err => res.status(401).send("could not perform request"))
+
+      
+    }
+
+    catch(err){
+      res.status(500).send("server error")
+    }
+
   }
 }

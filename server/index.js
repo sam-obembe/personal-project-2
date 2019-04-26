@@ -46,5 +46,6 @@ app.delete(`/user/delete/:userId`, ac.delete)
 //jobs
 app.post(`/jobs/create`,jc.createJob)
 app.delete(`/jobs/delete/:jobId`,jc.deleteJob)
+app.get(`/recruiter/jobPosts`, jc.getJobs)
 
 app.listen(port,()=>console.log(`listening on ${port}`))

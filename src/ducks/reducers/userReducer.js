@@ -15,6 +15,12 @@ export const setDetails =(details)=>{
   }
 }
 
+export const getCreatedJobs = ()=>{
+  return (dispatch,getState, {getFirebase, getFirestore})=>{
+    
+  }
+}
+
 export default function(state = userState, action){
 
   switch(action.type){
