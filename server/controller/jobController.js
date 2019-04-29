@@ -13,7 +13,8 @@ module.exports = {
         job_duration,
         job_fee,
         job_title
-      }).then((ref)=>{
+      })
+      .then((ref)=>{
         db.collection('jobs').doc(ref.id).set({
           creator_id: userId,
           job_description,
@@ -21,7 +22,8 @@ module.exports = {
           job_fee,
           job_title,
         })
-      }).then((ref)=>res.status(200).send(`a document has been created ${ref.id}`))
+      })
+      .then((ref)=>res.status(200).send(`a document has been created ${ref.id}`))
     }
     catch(err){
       res.status(500).send(`could not create`)
@@ -66,7 +68,12 @@ module.exports = {
       const jobs = []
       await db.collection('users').doc(userId).collection('jobs_created').get()
       .then(querySnapshot=>{
-        querySnapshot.forEach(jobDoc=> jobs.push(jobDoc.data()))
+        querySnapshot.forEach(jobDoc=> {
+          let jobInfo = jobDoc.data()
+          jobInfo.job_id =jobDoc.id
+          jobs.push(jobInfo)
+          // jobs.push(jobDoc.data())})
+      })
       })
       .then(()=>res.status(200).send(jobs))
       .catch(err => res.status(401).send("could not perform request"))

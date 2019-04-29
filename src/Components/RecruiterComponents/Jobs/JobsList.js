@@ -11,13 +11,12 @@ class JobList extends React.Component{
 
   listCreatedJobs=()=>{
     const {jobsCreated}  = this.props
-    for(let i = 0; i<jobsCreated.length; i++){
-      console.log(jobsCreated[i])
-      return (
-        <JobsListItem job = {jobsCreated[i]}/>
-      )
-    }
+    return jobsCreated.map(job=>{
+      return <JobsListItem job = {job} key = {job.job_id} getJobs = {this.props.getCreatedJobs}/>
+    })
+
   }
+
   render(){
     const {jobsCreated} = this.props
     return(
