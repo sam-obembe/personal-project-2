@@ -1,6 +1,7 @@
 import React from 'react'
 //dependencies
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 //material UI imports
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
@@ -37,6 +38,7 @@ class SideBar extends React.Component{
   }
   render(){
     const {tabValue} = this.state
+    const {userDetails} = this.props
     return(
       <div style = {{width:"33%", height: "100vh"}}>
 
@@ -44,7 +46,7 @@ class SideBar extends React.Component{
 
           <Avatar alt = "avatar" src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"/>
 
-          <Typography variant = "h5">My Profile</Typography>
+          <Typography variant = "h5">{userDetails.first_name}</Typography>
           <Link to = "/"><Button>Logout</Button></Link>
 
         </Toolbar>
@@ -69,4 +71,8 @@ class SideBar extends React.Component{
   }
 }
 
-export default SideBar
+function mapStateToProps(state){
+  return {userDetails: state.user}
+}
+
+export default connect(mapStateToProps)(SideBar)

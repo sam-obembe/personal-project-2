@@ -1,5 +1,7 @@
 import React from 'react'
 //Dependencies
+import axios from 'axios'
+import {Redirect} from 'react-router-dom'
 
 //Material UI
 import Typography from '@material-ui/core/Typography'
@@ -7,6 +9,10 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Radio from '@material-ui/core/Radio'
 //Components
+
+//reducers && redux
+import {setDetails} from '../../ducks/reducers/userReducer'
+import {connect} from 'react-redux'
 
 class Signup extends React.Component{
   constructor(){
@@ -18,7 +24,8 @@ class Signup extends React.Component{
       email: "",
       password: "",
       first_name: "",
-      last_name:""
+      last_name:"",
+      success: false,
     }
   }
 
@@ -33,13 +40,30 @@ class Signup extends React.Component{
     this.setState({[e.target.name]:e.target.value})
   }
 
-  submitButton=()=>{
-    this.setState({user_type:"",email:"",password:"",first_name:"",last_name:""})
+  submitButton= async()=>{
+    const {email, password, first_name,last_name, user_type} = this.state
+    await axios.post(`/register`,{
+      email, password, first_name, last_name, user_type
+    }).then(async res=>{
+      await this.props.setDetails(res.data.details)
+      this.setState({success:true})
+    })
+
+  }
+
+  signUpSuccess =  ()=>{
+    if(this.state.success && this.state.user_type === "recruiter"){
+      return <Redirect to = "/recruiter/home"/>
+    }
+    else if(this.state.success && this.state.user_type === "job_seeker"){
+      return <Redirect to = "/user/home"/>
+    }
   }
 
   render(){
     return(
       <div style = {{display:"flex", flexDirection: "column", width: "250px", margin: "0 auto"}}>
+        {this.signUpSuccess()}
         <Typography variant = "h5">Signup</Typography>
 
         <TextField label="email" name ="email" onChange = {(e)=>this.inputHandle(e)} value ={this.state.email}/>
@@ -77,4 +101,7 @@ class Signup extends React.Component{
   }
 }
 
-export default Signup
+function mapStateToProps(state){
+  return state.user
+}
+export default connect(mapStateToProps,{setDetails})(Signup)
