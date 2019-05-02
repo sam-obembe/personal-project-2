@@ -1,12 +1,28 @@
-import React from 'react'
+import React,{Component} from 'react'
+import ListItem from './ListItem'
 
-class SuggestionsList extends React.Component{
+class SuggestionsList extends Component{
+  constructor(props){
+    super(props)
+    this.state = {
+
+    }
+  }
+
+  listJobs=()=>{
+    let {suggestions} = this.props
+    return suggestions.map((job,i)=>{
+      return <ListItem job = {job} key = {job.job_id}/>
+    })
+  }
+
   render(){
     return(
-      <div style = {{backgroundColor:"grey", width:"100vw", height:"100vh"}}>
-          <h1>This is where the list of job suggestions would go</h1>
+      <div style = {{ minWidth: "250px", maxWidth:"75%"}}>
+        {this.listJobs()}
       </div>
     )
   }
 }
+
 export default SuggestionsList

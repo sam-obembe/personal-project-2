@@ -85,5 +85,37 @@ module.exports = {
       res.status(500).send("server error")
     }
 
+  },
+
+  getJobSuggestions: async(req,res)=>{
+    
+    try{
+      const userId = firebase.auth().currentUser.uid
+      const db = req.app.get('db')
+      const jobSuggestions = []
+
+      if(userId.length>0){
+
+        await db.collection('jobs').get().then(querySnapshot=>{
+          
+          querySnapshot.forEach(job=>{
+            let jobDetails = Object.assign({},job.data(),{
+              job_id: job.id
+            })
+            jobSuggestions.push(jobDetails)
+          })
+
+          res.status(200).send(jobSuggestions)
+        })
+        .catch(err=> res.status(401).send("cannot complete"))
+
+      }else{
+        res.status(401).send("please login")
+      }
+    }
+
+    catch(err){
+      res.status(500).send("server error, could not complete")
+    }
   }
 }
